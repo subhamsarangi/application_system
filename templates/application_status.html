@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Application Status{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="text-center text-primary">Application Status</h2>
+
+        {% if application %}
+            <div class="alert alert-info">
+                <p><strong>Status:</strong> <span class="badge badge-info">{{ application.status }}</span></p>
+                <a class="btn btn-primary" href="{{ url_for('application_detail_student', application_id=application.id) }}">
+                    <i class="fa fa-eye"></i> View Details
+                </a>
+            </div>
+
+            {% if application.status == 'Approved' %}
+                <a class="btn btn-success" target="_blank" href="{{ url_for('download_admission_letter', application_id=application.id) }}">
+                    <i class="fa fa-download"></i> Download Admission Letter
+                </a>
+            {% endif %}
+        
+        {% else %}
+            <div class="alert alert-warning">
+                <p>You have not submitted an application yet.</p>
+                <a class="btn btn-info" href="{{ url_for('apply') }}">
+                    <i class="fa fa-pencil"></i> Apply Now
+                </a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}

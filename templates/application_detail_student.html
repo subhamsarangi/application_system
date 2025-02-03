@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Your Application Details{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="text-center text-primary">Application Details</h2>
+
+        <div class="list-group">
+            <p class="list-group-item"><strong>Name:</strong> {{ application.profile.full_name }}</p>
+            <p class="list-group-item"><strong>Date of Birth:</strong> {{ application.profile.date_of_birth }}</p>
+            <p class="list-group-item"><strong>Contact Number:</strong> {{ application.profile.contact_number }}</p>
+            <p class="list-group-item"><strong>Address:</strong> {{ application.profile.address }}</p>
+            <p class="list-group-item"><strong>Nationality:</strong> {{ application.profile.nationality }}</p>
+            <p class="list-group-item"><strong>Academic Background:</strong> {{ application.profile.academic_background }}</p>
+            <p class="list-group-item"><strong>GPA:</strong> {{ application.profile.gpa }}</p>
+        </div>
+
+        <hr>
+
+        <h3 class="text-secondary">Documents</h3>
+        <ul class="list-group">
+            {% for document in documents %}
+                <li class="list-group-item">
+                    <a class="btn btn-link" target="_blank" href="{{ url_for('download_admission_file', application_id=application.id, file_name=document.file_name) }}">
+                        <i class="fa fa-file-pdf-o"></i> {{ document.file_name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h2, h3 {
+            margin-bottom: 20px;
+        }
+        .list-group-item {
+            font-size: 16px;
+        }
+    </style>
+{% endblock %}

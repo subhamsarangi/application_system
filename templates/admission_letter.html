@@ -1,0 +1,61 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admission Letter</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        nav a {
+            margin-right: 15px;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .footer i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center text-primary">Admission Letter</h1>
+        <p class="lead">Dear {{ profile.full_name }},</p>
+        <hr>
+        <p>We are pleased to inform you that your application for admission has been approved. Here are the details of your application:</p>
+
+        <div class="list-group">
+            <p class="list-group-item"><strong>Name:</strong> {{ profile.full_name }}</p>
+            <p class="list-group-item"><strong>Date of Birth:</strong> {{ profile.date_of_birth }}</p>
+            <p class="list-group-item"><strong>Contact Number:</strong> {{ profile.contact_number }}</p>
+            <p class="list-group-item"><strong>Address:</strong> {{ profile.address }}</p>
+            <p class="list-group-item"><strong>Nationality:</strong> {{ profile.nationality }}</p>
+            <p class="list-group-item"><strong>Academic Background:</strong> {{ profile.academic_background }}</p>
+            <p class="list-group-item"><strong>GPA:</strong> {{ profile.gpa }}</p>
+        </div>
+
+        <div class="mt-4">
+            <p class="lead">Congratulations! We look forward to welcoming you to our institution.</p>
+            <p>Sincerely,</p>
+            <p>The Admissions Team</p>
+        </div>
+
+        <div class="footer text-center mt-4">
+            <p><i class="fa fa-envelope"></i> If you have any questions, please contact us at <a href="#">admissions@yopmail.com</a></p>
+        </div>
+    </div>
+</body>
+</html>

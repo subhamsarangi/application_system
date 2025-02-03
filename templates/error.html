@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}ERROR{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="text-center text-danger">Error</h2>
+
+        <div class="alert alert-danger">
+            <i class="fa fa-exclamation-triangle"></i> <strong>{{ error }}</strong>
+        </div>
+
+        <div class="text-center">
+            <a class="btn btn-primary" href="{{ url_for('index') }}">
+                <i class="fa fa-home"></i> Return to Home
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}

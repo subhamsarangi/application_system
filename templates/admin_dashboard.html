@@ -1,0 +1,204 @@
+{% extends "base.html" %} 
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="dashboard-title">Admin Dashboard</h2>
+
+<!-- Submitted Applications -->
+{% if submitted_applications %}
+<h3>Submitted Applications</h3>
+<div class="table-responsive">
+    <table class="application-table">
+        <thead>
+            <tr>
+                <th>Application ID</th>
+                <th>Applicant Name</th>
+                <th>Status</th>
+                <th>Submission Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in submitted_applications %}
+            <tr class="submitted">
+                <td>{{ application.id }}</td>
+                <td>{{ application.profile.full_name }}</td>
+                <td>{{ application.status }}</td>
+                <td>{{ application.submission_date }}</td>
+                <td>
+                    <a href="{{ url_for('application_detail_admin', application_id=application.id) }}">
+                        <button class="btn-view-details">
+                            View Details
+                        </button> 
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<h4 class="no-applications">No new applications yet</h4>
+{% endif %}
+
+<!-- Approved Applications -->
+{% if approved_applications %}
+<h3>Approved Applications</h3>
+<div class="table-responsive">
+    <table class="application-table">
+        <thead>
+            <tr>
+                <th>Application ID</th>
+                <th>Applicant Name</th>
+                <th>Status</th>
+                <th>Submission Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in approved_applications %}
+            <tr class="approved">
+                <td>{{ application.id }}</td>
+                <td>{{ application.profile.full_name }}</td>
+                <td>{{ application.status }}</td>
+                <td>{{ application.submission_date }}</td>
+                <td>
+                    <a href="{{ url_for('application_detail_admin', application_id=application.id) }}">
+                        <button class="btn-view-details">
+                            View Details
+                        </button> 
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<h4 class="no-applications">No approved applications yet</h4>
+{% endif %}
+
+<!-- Rejected Applications -->
+{% if rejected_applications %}
+<h3>Rejected Applications</h3>
+<div class="table-responsive">
+    <table class="application-table">
+        <thead>
+            <tr>
+                <th>Application ID</th>
+                <th>Applicant Name</th>
+                <th>Status</th>
+                <th>Submission Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in rejected_applications %}
+            <tr class="rejected">
+                <td>{{ application.id }}</td>
+                <td>{{ application.profile.full_name }}</td>
+                <td>{{ application.status }}</td>
+                <td>{{ application.submission_date }}</td>
+                <td>
+                    <a href="{{ url_for('application_detail_admin', application_id=application.id) }}">
+                        <button class="btn-view-details">
+                            View Details
+                        </button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<h4 class="no-applications">No rejected applications yet</h4>
+{% endif %}
+
+{% endblock %}
+
+{% block styles %}
+<style>
+    /* General Styles */
+    .dashboard-title {
+        text-align: center;
+        font-size: 32px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .application-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .application-table th, .application-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .application-table th {
+        background-color: #f4f4f4;
+        color: #555;
+        font-weight: bold;
+    }
+
+    .application-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .btn-view-details {
+        color: #fff;
+        background-color: #007bff;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-view-details:hover {
+        background-color: #0056b3;
+    }
+
+    .submitted {
+        background-color: #f1f8e9;
+    }
+
+    .approved {
+        background-color: #e9f7f1;
+    }
+
+    .rejected {
+        background-color: #f8e9e9;
+    }
+
+    .no-applications {
+        text-align: center;
+        font-size: 18px;
+        color: #777;
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        // Add some interactive features using jQuery
+        $('.btn-view-details').on('click', function(event) {
+            // Optionally, add any animation or effect
+            $(this).closest('tr').addClass('highlight');
+            setTimeout(function() {
+                $('.highlight').removeClass('highlight');
+            }, 2000);
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Application Form{% endblock %}
+
+{% block content %}
+<h2 class="form-title">Application Form</h2>
+
+<form method="POST" enctype="multipart/form-data" class="application-form">
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+        <label for="{{ form.full_name.id }}">{{ form.full_name.label }}</label>
+        {{ form.full_name(size=64) }}
+        {% for error in form.full_name.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.date_of_birth.id }}">{{ form.date_of_birth.label }}</label>
+        {{ form.date_of_birth() }}
+        {% for error in form.date_of_birth.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.contact_number.id }}">{{ form.contact_number.label }}</label>
+        {{ form.contact_number(size=20) }}
+        {% for error in form.contact_number.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.address.id }}">{{ form.address.label }}</label>
+        {{ form.address(rows=3) }}
+        {% for error in form.address.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.nationality.id }}">{{ form.nationality.label }}</label>
+        <select class="form-control" id="nationality" name="nationality">
+        </select>
+        {% for error in form.nationality.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.academic_background.id }}">{{ form.academic_background.label }}</label>
+        {{ form.academic_background(rows=5) }}
+        {% for error in form.academic_background.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.gpa.id }}">{{ form.gpa.label }}</label>
+        {{ form.gpa() }}
+        {% for error in form.gpa.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.documents.id }}">{{ form.documents.label }}</label>
+        {{ form.documents() }}
+        {% for error in form.documents.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <button type="submit" class="submit-btn">Submit Application</button>
+</form>
+
+{% endblock %}
+
+{% block styles %}
+<style>
+    /* General Form Styling */
+    .application-form {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-title {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .form-group input[type="file"] {
+        border: none;
+    }
+
+    .error {
+        color: red;
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        var validNationalities = {{ valid_nationalities | tojson }};
+
+        var nationalitySelect = $('#nationality');
+        validNationalities.forEach(function(nationality) {
+            nationalitySelect.append($('<option>', {
+                value: nationality,
+                text: nationality
+            }));
+        });
+    });
+</script>
+{% endblock %}

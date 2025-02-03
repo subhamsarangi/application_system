@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 text-center">
+        {% if current_user.role == 'admin' %}
+            <h1 class="text-success">
+                <i class="fa fa-cogs"></i> Welcome to the Admin Dashboard
+            </h1>
+            <p class="lead mt-3">You have full control over the admissions portal. Manage applications, users, and settings.</p>
+            <a class="btn btn-primary btn-lg mt-4" href="{{ url_for('admin_dashboard') }}">
+                <i class="fa fa-tachometer"></i> Go to Admin Dashboard
+            </a>
+        {% else %}
+            <h1 class="text-primary">
+                <i class="fa fa-graduation-cap"></i> Welcome to the Student Admissions Portal
+            </h1>
+            <p class="lead mt-3">Your journey to a brighter future starts here. Please explore the portal for more information.</p>
+            <a class="btn btn-info btn-lg mt-4" href="{{ url_for('apply') }}">
+                <i class="fa fa-pencil"></i> Start Your Application
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 36px;
+        }
+    </style>
+{% endblock %}

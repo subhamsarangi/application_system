@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Student Admissions{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        {% if current_user.is_authenticated %}
+            {% if current_user.role == 'admin' %}
+                <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+            {% else %}
+                <a href="{{ url_for('application_status') }}">Application Status</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+        {% endif %}
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block styles %}{% endblock %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    
+    <script>
+      toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "timeOut": "5000"
+      };
+    </script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <script>
+            $(document).ready(function(){
+                {% for category, message in messages %}
+                    toastr["{{ category|lower }}"]({{ message|tojson }});
+                {% endfor %}
+            });
+            </script>
+        {% endif %}
+    {% endwith %}
+
+    <script>
+        $(document).ready(function(){
+            $("a").click(function (event) {
+                if ($(this).hasClass("disabled")) {
+                    event.preventDefault();
+                }
+                $(this).addClass("disabled");
+            });
+            $('form button[type="submit"]').on('click', function() {
+                let clickedButton = $(this);
+                setTimeout(function() {
+                    clickedButton.prop('disabled', true); // Disable only after a short delay
+                }, 50);
+            });
+
+        });
+
+    </script>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

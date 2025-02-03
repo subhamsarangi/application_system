@@ -1,0 +1,13 @@
+Flask
+Flask-Login
+Flask-WTF
+Flask-Migrate
+psycopg2-binary
+SQLAlchemy
+Werkzeug
+pytest
+email_validator
+pdfkit
+reportlab
+wkhtmltopdf
+python-dotenv
